@@ -120,8 +120,46 @@ const template = (function () {
                         </div>
                     </li>`;
 
+    const friends = {
+        friendsBtn: {
+            approve: `<button type="button" class="btn btn-outline-danger btn-sm" data-btn="friends-reject">
+                        거절
+                      </button>
+                      <button type="button" class="btn btn-outline-success btn-sm" data-btn="friends-approve">
+                        수락
+                      </button>`,
+            add: `<button type="button" class="btn btn-outline-primary btn-sm" data-btn="friends-add">
+                         친구 추가
+                  </button>`,
+            remove: `<button type="button" class="btn btn-outline-warning btn-sm" data-btn="friends-remove">
+                          친구 삭제
+                     </button>`,
+        },
+        usersBtn: {
+            profileUpdate: `<button type="button" class="btn btn-info" id="user-update-form-btn">
+                                프로필 수정
+                            </button>`,
+            none: `<button type="button" class="btn btn-info" id="friend-add-btn" data-friend-id="{{userId}}">
+                        친구 추가
+                    </button>`,
+            add: `<button type="button" class="btn btn-info" id="friend-requesting-btn" data-friend-id="{{userId}}">
+                        요청중
+                    </button>`,
+            requested: `<button type="button" class="btn btn-info" id="friend-reject-btn" data-friend-id="{{userId}}">
+                        친구 거절
+                    </button>
+                    <button type="button" class="btn btn-info" id="friend-approve-btn" data-friend-id="{{userId}}">
+                        친구 수락
+                    </button>`,
+            friend: `<button type="button" class="btn btn-info" id="friend-ing-btn" data-friend-id="{{userId}}">
+                        친구
+                    </button>`,
+        }
+    }
+
     return {
         article: article,
         comment: comment,
+        friends: friends,
     };
 })();
