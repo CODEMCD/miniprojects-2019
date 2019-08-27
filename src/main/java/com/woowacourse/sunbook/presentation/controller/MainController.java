@@ -27,7 +27,7 @@ public class MainController {
         return "newsfeed";
     }
 
-    @GetMapping("/users")
+    @GetMapping("/users/{userId}")
     public String users() {
         return "users";
     }
