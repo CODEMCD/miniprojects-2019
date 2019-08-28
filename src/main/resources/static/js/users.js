@@ -39,6 +39,13 @@ const UsersApp = (() => {
         const userBtn = document.getElementById('users-btn');
         const userId = window.location.pathname.split("/")[2];
 
+        userApi.userInfo(userId)
+            .then(response => response.json())
+            .then(userInfo => {
+                const userPageName = document.getElementById("user-page-name");
+                userPageName.innerText = userInfo.userName.name;
+            });
+
         const drawBtn = (relationship) => {
             const userData = {'userId': userId};
 
@@ -84,6 +91,7 @@ const UsersApp = (() => {
 
                         });
                     }
+
                 })
         };
 
@@ -241,8 +249,13 @@ const UsersApp = (() => {
             return Api.put('/api/users', data);
         };
 
+        const userInfo = (userId) => {
+            return Api.get('/api/users/' + userId);
+        };
+
         return {
             update: update,
+            userInfo: userInfo,
         }
     };
 

@@ -45,6 +45,7 @@ const HeaderApp = (() => {
                         console.log('header login user 요청', json);
                         AppStorage.set('login-user', json);
                         loginUserName.innerText = json.userName.name;
+                        document.getElementById("user-url").setAttribute("href", '/users/' + json.id);
                     }
                 });
         };
@@ -62,6 +63,10 @@ const HeaderApp = (() => {
                 .then(response => {
                     return response.json();
                 });
+        };
+
+        const logout = () => {
+
         };
 
         return {
