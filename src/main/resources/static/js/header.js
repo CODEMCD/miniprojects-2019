@@ -65,10 +65,6 @@ const HeaderApp = (() => {
                 });
         };
 
-        const logout = () => {
-
-        };
-
         return {
             getLoginUser: getLoginUser,
         }
