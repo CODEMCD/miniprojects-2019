@@ -67,7 +67,7 @@ const HeaderApp = (() => {
 
         return {
             getLoginUser: getLoginUser,
-        }
+        };
     };
 
     const init = () => {

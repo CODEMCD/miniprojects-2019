@@ -73,12 +73,8 @@ const UsersApp = (() => {
 
         const renderUserStatusBtn = () => {
 
-            console.log('userId :: ', userId);
             HeaderApp.loginUser()
                 .then(loginUser => {
-                    console.log('loginUser response :: ', loginUser);
-                    console.log(String(loginUser.id) === userId);
-
                     if (String(loginUser.id) === userId) {
                         userBtn.innerHTML = templateProfileUpdate();
                         const userUpdateModalBtn = document.getElementById('user-update-form-btn');
@@ -101,7 +97,6 @@ const UsersApp = (() => {
             friendApi.add(toId)
                 .then(response => response.json())
                 .then(relation => {
-                    console.log('relation response :: ', relation);
                     if (relation.hasOwnProperty('errorMessage')) {
                         alert(relation.errorMessage);
                     } else {
@@ -116,7 +111,6 @@ const UsersApp = (() => {
             friendApi.ok(toId)
                 .then(response => response.json())
                 .then(relation => {
-                    console.log('relation response :: ', relation);
                     if (relation.hasOwnProperty('errorMessage')) {
                         alert(relation.errorMessage);
                     } else {
@@ -131,7 +125,6 @@ const UsersApp = (() => {
             friendApi.no(toId)
                 .then(response => response.json())
                 .then(relation => {
-                    console.log('relation response :: ', relation);
                     if (relation.hasOwnProperty('errorMessage')) {
                         alert(relation.errorMessage);
                     } else {
@@ -155,8 +148,6 @@ const UsersApp = (() => {
                             drawBtn(relation.relationship);
                         }
                     });
-            } else {
-                return;
             }
         };
 
@@ -168,15 +159,12 @@ const UsersApp = (() => {
                 friendApi.no(toId)
                     .then(response => response.json())
                     .then(relation => {
-                        console.log('relation response :: ', relation);
                         if (relation.hasOwnProperty('errorMessage')) {
                             alert(relation.errorMessage);
                         } else {
                             drawBtn(relation.relationship);
                         }
                     });
-            } else {
-                return;
             }
         };
 
@@ -214,7 +202,6 @@ const UsersApp = (() => {
                 changePassword: changePassword.value
             };
 
-            console.log('회원 정보 수정 요청 ::', data);
             userApi.update(data)
                 .then(response => {
                     return response.json();
@@ -222,7 +209,6 @@ const UsersApp = (() => {
                     if (json.hasOwnProperty('errorMessage')) {
                         alert(json.errorMessage);
                     } else {
-                        console.log('회원 정보 수정 응답 ::', json);
                         nowPassword.value = "";
                         email.value = "";
                         lastName.value = "";
@@ -256,7 +242,7 @@ const UsersApp = (() => {
         return {
             update: update,
             userInfo: userInfo,
-        }
+        };
     };
 
     const init = () => {

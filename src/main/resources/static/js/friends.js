@@ -48,7 +48,7 @@ const FriendsApp = (() => {
             remove: remove,
             render: render,
             relation: getRelation,
-        }
+        };
     };
 
     const init = () => {
