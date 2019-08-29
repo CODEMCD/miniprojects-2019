@@ -2,6 +2,9 @@ const template = (function () {
     const article = `<div class="card widget-feed" data-object="article" data-article-id="{{id}}">
                     <div class="feed-header">
                         <ul class="list-unstyled list-info">
+                            <li class="float-right mrg-right-40">
+                                <i id="range-icon-{{id}}" class="ti-lock font-size-20"></i>
+                            </li>
                             <li>
                                 <img class="thumb-img img-circle" src="/images/default/eastjun_profile.jpg" alt="">
                                 <div class="info">

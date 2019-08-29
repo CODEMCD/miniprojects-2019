@@ -68,6 +68,7 @@ const ArticleApp = (() => {
                             "authorName": article.authorName.name,
                         }));
                         ReactionApp.service().showGoodCount('article', article.id);
+                        addRangeIcon(article.id, article.openRange);
                         checkBlank();
                     })
                 })
@@ -87,7 +88,7 @@ const ArticleApp = (() => {
             upload(contents, translateSelectedRange(selectedRange)).then(data => {
                 articleApi.add(data)
                     .then(response => response.json())
-                    .then((article) => {
+                    .then(article => {
                         document.getElementById('article-list')
                             .insertAdjacentHTML('afterbegin', articleTemplate({
                                 "id": article.id,
@@ -98,6 +99,9 @@ const ArticleApp = (() => {
                                 "authorName": article.authorName.name,
                             }));
                         ReactionApp.service().showGoodCount('article', article.id);
+
+                        addRangeIcon(article.id, article.openRange);
+
                         const videoTag = document.querySelector('video[data-object="article-video"]');
                         const imageTag = document.querySelector('img[data-object="article-image"]');
                         if (videoTag.getAttribute('src') === "") {
@@ -120,6 +124,18 @@ const ArticleApp = (() => {
                 return '1';
             } else if (range === '비공개') {
                 return '2';
+            }
+        };
+
+        const addRangeIcon = (articleId, range) => {
+            const rangeIcon = document.getElementById(`range-icon-${articleId}`);
+
+            if (range === 'ALL') {
+                rangeIcon.setAttribute('class', 'ti-notepad text-info font-size-20');
+            } else if (range === 'ONLY_FRIEND') {
+                rangeIcon.setAttribute('class', 'ti-user text-info font-size-20');
+            } else if (range === 'NONE') {
+                rangeIcon.setAttribute('class', 'ti-lock text-info font-size-20');
             }
         };
 
