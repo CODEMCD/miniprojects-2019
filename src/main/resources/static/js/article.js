@@ -69,6 +69,7 @@ const ArticleApp = (() => {
                         }));
                         ReactionApp.service().showGoodCount('article', article.id);
                         addRangeIcon(article.id, article.openRange);
+                        CommentApp.service().showCommentCount(article.id);
                         checkBlank();
                     })
                 })
