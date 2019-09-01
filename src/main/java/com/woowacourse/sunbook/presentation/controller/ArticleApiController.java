@@ -49,9 +49,7 @@ public class ArticleApiController {
     }
 
     @DeleteMapping("/{articleId}")
-    public ResponseEntity<Void> remove(@PathVariable Long articleId, LoginUser loginUser) {
-        articleService.remove(articleId, loginUser.getId());
-
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Boolean> remove(@PathVariable Long articleId, LoginUser loginUser) {
+        return ResponseEntity.ok().body(articleService.remove(articleId, loginUser.getId()));
     }
 }

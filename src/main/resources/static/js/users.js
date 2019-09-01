@@ -84,7 +84,6 @@ const UsersApp = (() => {
                         articleBtn.setAttribute('style', '');
                     } else {
                         friendApi.relation(userId).then(relation => {
-                            console.log('relation response :: ', relation);
                             const relationship = relation.relationship;
                             drawBtn(relationship);
 
@@ -144,7 +143,6 @@ const UsersApp = (() => {
                 friendApi.remove(toId)
                     .then(response => response.json())
                     .then(relation => {
-                        console.log('relation response :: ', relation);
                         if (relation.hasOwnProperty('errorMessage')) {
                             alert(relation.errorMessage);
                         } else {

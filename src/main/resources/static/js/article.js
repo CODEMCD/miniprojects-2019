@@ -64,7 +64,7 @@ const ArticleApp = (() => {
                     data.forEach(article => {
                         articleList.insertAdjacentHTML('afterbegin', articleTemplate({
                             "id": article.id,
-                            "updatedTime": article.updatedTime,
+                            "updatedTime": TimeApi.pretty(article.updatedTime),
                             "article-contents": article.articleFeature.contents.contents,
                             "article-videoUrl": article.articleFeature.videoUrl.fileUrl,
                             "article-imageUrl": article.articleFeature.imageUrl.fileUrl,
@@ -97,7 +97,7 @@ const ArticleApp = (() => {
                         document.getElementById('article-list')
                             .insertAdjacentHTML('afterbegin', articleTemplate({
                                 "id": article.id,
-                                "updatedTime": article.updatedTime,
+                                "updatedTime": TimeApi.pretty(article.updatedTime),
                                 "article-contents": article.articleFeature.contents.contents,
                                 "article-videoUrl": article.articleFeature.videoUrl.fileUrl,
                                 "article-imageUrl": article.articleFeature.imageUrl.fileUrl,
@@ -105,9 +105,8 @@ const ArticleApp = (() => {
                                 "authorName": article.authorName.name,
                             }));
                         ReactionApp.service().showGoodCount('article', article.id);
-
                         addRangeIcon(article.id, article.openRange);
-
+                        CommentApp.service().showCommentCount(article.id);
                         const videoTag = document.querySelector('video[data-object="article-video"]');
                         const imageTag = document.querySelector('img[data-object="article-image"]');
                         if (videoTag.getAttribute('src') === "") {
@@ -248,13 +247,14 @@ const ArticleApp = (() => {
                 });
             }
 
-            return $.ajax({
-                type: 'POST',
-                url: '/upload',
-                data: formData,
-                processData: false,
-                contentType: false
-            }).then(fileUrl => {
+
+            return fetch('/upload', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                },
+            }).then(res => res.json())
+                .then(fileUrl => {
                 let imgExtension = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
                 let videoExtension = /(\.mov|\.mp4)$/i;
                 let data;
