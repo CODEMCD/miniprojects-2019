@@ -54,8 +54,11 @@ const ArticleApp = (() => {
 
         const read = () => {
             const articleList = document.getElementById('article-list');
+            const targetHTML = articleList.getAttribute('data-target');
+            const pageUserId = targetHTML === 'users' ? window.location.pathname.split('/')[2] : 0;
+            articleList.innerHTML = "";  // 게시글 수정 버그 수정
 
-            articleApi.render()
+            articleApi.render(targetHTML, pageUserId)
                 .then(response => response.json())
                 .then(data => {
                     data.forEach(article => {
@@ -134,7 +137,7 @@ const ArticleApp = (() => {
             const rangeIcon = document.getElementById(`range-icon-${articleId}`);
 
             if (range === 'ALL') {
-                rangeIcon.setAttribute('class', 'ti-notepad text-info font-size-20');
+                rangeIcon.setAttribute('class', '');
             } else if (range === 'ONLY_FRIEND') {
                 rangeIcon.setAttribute('class', 'ti-user text-info font-size-20');
             } else if (range === 'NONE') {
@@ -316,8 +319,8 @@ const ArticleApp = (() => {
             return Api.delete(`/api/articles/${articleId}`);
         };
 
-        const render = () => {
-            return Api.get(`/api/articles`);
+        const render = (targetHTML, pageUserId) => {
+            return Api.get(`/api/articles?target=${targetHTML}&pageUserId=${pageUserId}`);
         };
 
         const update = (data, articleId) => {

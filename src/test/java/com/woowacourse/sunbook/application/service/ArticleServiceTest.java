@@ -25,6 +25,8 @@ import static org.mockito.Mockito.verify;
 class ArticleServiceTest extends MockStorage {
     private static final Long ARTICLE_ID = 1L;
     private static final Long USER_ID = 1L;
+    private static final Long PAGE_USER_ID = 1L;
+    private static final String NEWSFEED = "newsfeed";
 
     @InjectMocks
     private ArticleService injectArticleService;
@@ -39,7 +41,7 @@ class ArticleServiceTest extends MockStorage {
                 .collect(Collectors.toList())).willReturn(friends);
         given(modelMapper.map(article, ArticleResponseDto.class)).willReturn(articleResponseDto);
 
-        injectArticleService.findAll(USER_ID);
+        injectArticleService.findAll(USER_ID, PAGE_USER_ID, NEWSFEED);
 
         verify(articleRepository).findAllByAuthor(user);
         verify(articleRepository).findAllByAuthorInAndOpenRange(friends, OpenRange.ALL);

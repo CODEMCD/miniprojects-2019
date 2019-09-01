@@ -36,7 +36,7 @@ const template = (function () {
                     </div>
                     <div class="feed-body no-pdd">
                         <p>
-                            <span data-object="article-contents">{{article-contents}}</span> <br>
+                            <span data-object="article-contents">{{article-contents}}</span>
                             <video data-object="article-video" src="{{article-videoUrl}}" width=320" height="240" controls></video>
                             <img data-object="article-image" src="{{article-imageUrl}}" height="100" width="100" alt="">
                         </p>

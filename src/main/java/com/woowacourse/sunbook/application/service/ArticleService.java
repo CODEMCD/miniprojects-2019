@@ -50,31 +50,55 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public List<ArticleResponseDto> findAll(final Long loginId) {
-        User author = userService.findById(loginId);
-        List<User> friends = relationService.getFriendsRelation(author).stream()
-                .map(Relation::getTo)
-                .collect(Collectors.toList())
-                ;
-
-        List<Article> articles = new ArrayList<>(findAllByAuthor(author));
-        articles.addAll(findAllByAuthors(friends, OpenRange.ALL));
-        articles.addAll(findAllByAuthors(friends, OpenRange.ONLY_FRIEND));
+    public List<ArticleResponseDto> findAll(final Long loginId,
+                                            final Long pageUserId,
+                                            final String target) {
+        List<Article> articles = "users".equals(target)
+                ? findAllUserPage(loginId, pageUserId)
+                : findAllNewsFeed(loginId);
 
         return Collections.unmodifiableList(
                 articles.stream()
-                .sorted()
-                .map(article -> modelMapper.map(article, ArticleResponseDto.class))
-                .collect(Collectors.toList())
-                );
+                        .sorted()
+                        .map(article -> modelMapper.map(article, ArticleResponseDto.class))
+                        .collect(Collectors.toList())
+        );
     }
 
-    private List<Article> findAllByAuthor(final User author) {
-        return articleRepository.findAllByAuthor(author);
+    private List<Article> findAllNewsFeed(final Long loginId) {
+        User author = userService.findById(loginId);
+        List<User> friends = relationService.getFriendsRelation(author).stream()
+                .map(Relation::getTo)
+                .collect(Collectors.toList());
+
+        List<Article> newsFeedArticles = new ArrayList<>(articleRepository.findAllByAuthor(author));
+        newsFeedArticles.addAll(articleRepository.findAllByOpenRangeAndAuthorNot(OpenRange.ALL, author));
+        newsFeedArticles.addAll(articleRepository.findAllByAuthorInAndOpenRange(friends, OpenRange.ONLY_FRIEND));
+
+        return Collections.unmodifiableList(newsFeedArticles);
     }
 
-    private List<Article> findAllByAuthors(final List<User> authors, final OpenRange openRange) {
-        return articleRepository.findAllByAuthorInAndOpenRange(authors, openRange);
+    private List<Article> findAllUserPage(final Long loginId, final Long pageUserId) {
+        if (loginId.equals(pageUserId)) {
+            User author = userService.findById(loginId);
+
+            return Collections.unmodifiableList(articleRepository.findAllByAuthor(author));
+        }
+
+        return findAllAnotherPage(loginId, pageUserId);
+    }
+
+    private List<Article> findAllAnotherPage(final Long loginId, final Long pageUserId) {
+        User pageUser = userService.findById(pageUserId);
+        List<Article> userPageArticles =
+                new ArrayList<>(articleRepository.findAllByAuthorAndOpenRange(pageUser, OpenRange.ALL));
+
+        if (relationService.isFriend(loginId, pageUserId)) {
+            userPageArticles.addAll(articleRepository
+                    .findAllByAuthorAndOpenRange(pageUser, OpenRange.ONLY_FRIEND));
+        }
+
+        return Collections.unmodifiableList(userPageArticles);
     }
 
     @Transactional

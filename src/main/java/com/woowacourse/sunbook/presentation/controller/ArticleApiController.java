@@ -22,8 +22,12 @@ public class ArticleApiController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ArticleResponseDto>> show(LoginUser loginUser) {
-        List<ArticleResponseDto> articles = articleService.findAll(loginUser.getId());
+    public ResponseEntity<List<ArticleResponseDto>> show(
+            @RequestParam(value = "target") String target,
+            @RequestParam(value = "pageUserId") String pageUserId,
+            LoginUser loginUser) {
+        List<ArticleResponseDto> articles = articleService.findAll(
+                loginUser.getId(), Long.parseLong(pageUserId), target);
 
         return ResponseEntity.ok().body(articles);
     }
