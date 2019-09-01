@@ -3,7 +3,7 @@ const template = (function () {
                     <div class="feed-header">
                         <ul class="list-unstyled list-info">
                             <li class="float-right mrg-right-40">
-                                <i id="range-icon-{{id}}" class="ti-lock font-size-20"></i>
+                                <div id="range-icon-{{id}}" class="ti-lock font-size-20"></div>
                             </li>
                             <li>
                                 <img class="thumb-img img-circle" src="/images/default/eastjun_profile.jpg" alt="">

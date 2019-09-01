@@ -139,9 +139,9 @@ const ArticleApp = (() => {
             if (range === 'ALL') {
                 rangeIcon.setAttribute('class', '');
             } else if (range === 'ONLY_FRIEND') {
-                rangeIcon.setAttribute('class', 'ti-user text-info font-size-20');
+                rangeIcon.setAttribute('class', 'friend-btn font-size-20');
             } else if (range === 'NONE') {
-                rangeIcon.setAttribute('class', 'ti-lock text-info font-size-20');
+                rangeIcon.setAttribute('class', 'ti-lock font-size-20');
             }
         };
 
