@@ -31,8 +31,9 @@ const Api = {
     postImage: function (url, data) {
         return fetch(url, {
             method: 'POST',
-            enctype: "multipart/form-data",
             body: data,
+            headers: {
+            },
         });
     },
 };
@@ -65,10 +66,9 @@ const AppStorage = (function() {
 
 const TimeApi = {
     pretty : function (time) {
-        let date = new Date(time);
-        let secondDiff = Math.floor((Date.now() - date) / 1000);
-
-        secondDiff = secondDiff - 32400;
+        const date = new Date(time);
+        const today = new Date();
+        let secondDiff = Math.floor((today - date) / 1000);
 
         if (secondDiff < 0) secondDiff = 0;
 
@@ -99,5 +99,27 @@ const TimeApi = {
 
             day_diff >= 360 && (Math.floor( day_diff / 360 )===0?1:Math.floor( day_diff / 360 )) + " 년 전"
 
+    },
+};
+
+const LoadingApi = {
+    loading: function () {
+        const htmlAttr = document.documentElement;
+        const header = document.getElementById('header');
+        const loader = document.getElementById('loader');
+
+        header.style.display = "none";
+        loader.style.display = "block";
+        htmlAttr.classList.add('overlay-dark');
+    },
+
+    loadingDone: function () {
+        const htmlAttr = document.documentElement;
+        const header = document.getElementById('header');
+        const loader = document.getElementById('loader');
+
+        header.style.display = "block";
+        loader.style.display = "none";
+        htmlAttr.classList.remove('overlay-dark');
     },
 };
