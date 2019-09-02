@@ -32,14 +32,6 @@ public class UserName {
     }
 
     public String getFullName() {
-        return lastName + firstName;
-    }
-
-    @Override
-    public String toString() {
-        return "UserName{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
+        return lastName + " " + firstName;
     }
 }

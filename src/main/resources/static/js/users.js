@@ -43,7 +43,7 @@ const UsersApp = (() => {
             .then(response => response.json())
             .then(userInfo => {
                 const userPageName = document.getElementById("user-page-name");
-                userPageName.innerText = userInfo.userName.name;
+                userPageName.innerText = userInfo.userName.fullName;
             });
 
         const drawBtn = (relationship) => {
@@ -176,8 +176,8 @@ const UsersApp = (() => {
 
             const loginUser = AppStorage.get('login-user');
             email.value = loginUser.userEmail.email;
-            lastName.value = loginUser.userName.name;
-            firstName.value = loginUser.userName.name;
+            lastName.value = loginUser.userName.lastName;
+            firstName.value = loginUser.userName.firstName;
 
             const showModalBtn = document.getElementById('show-user-update-modal-btn')
             showModalBtn.click();
