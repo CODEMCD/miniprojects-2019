@@ -150,10 +150,12 @@ const ArticleApp = (() => {
             const article = document.querySelector(`div[data-article-id="${articleId}"]`);
             const imageUrl = article.querySelector('img[data-object="article-image"]');
             const videoUrl = article.querySelector('video[data-object="article-video"]');
+            const currentUrl = String(window.location);
+
             const data = {
                 contents: updateArea.value,
-                imageUrl: imageUrl.src.includes("newsfeed") ? "" : imageUrl.src,
-                videoUrl: videoUrl.src.includes("newsfeed") ? "" : videoUrl.src,
+                imageUrl: (imageUrl.src === currentUrl) ? "" : imageUrl.src,
+                videoUrl: (videoUrl.src === currentUrl) ? "" : videoUrl.src,
             };
 
             articleApi.update(data, articleId)
