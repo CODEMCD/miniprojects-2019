@@ -65,7 +65,7 @@ const ArticleApp = (() => {
                             "article-contents": article.articleFeature.contents.contents,
                             "article-videoUrl": article.articleFeature.videoUrl.fileUrl,
                             "article-imageUrl": article.articleFeature.imageUrl.fileUrl,
-                            "authorName": article.authorName.name,
+                            "authorName": article.authorName.fullName,
                         }));
                         ReactionApp.service().showGoodCount('article', article.id);
                         CommentApp.service().showCommentCount(article.id);
@@ -96,7 +96,7 @@ const ArticleApp = (() => {
                                 "article-contents": article.articleFeature.contents.contents,
                                 "article-videoUrl": article.articleFeature.videoUrl.fileUrl,
                                 "article-imageUrl": article.articleFeature.imageUrl.fileUrl,
-                                "authorName": article.authorName.name,
+                                "authorName": article.authorName.fullName,
                             }));
                         ReactionApp.service().showGoodCount('article', article.id);
                         CommentApp.service().showCommentCount(article.id);

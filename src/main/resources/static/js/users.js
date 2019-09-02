@@ -194,7 +194,10 @@ const UsersApp = (() => {
             const changePassword = document.getElementById('user-update-change-password');
 
             const data = {
-                userName: lastName.value + firstName.value,
+                userName: {
+                    firstName: firstName.value,
+                    lastName: lastName.value,
+                },
                 userEmail: email.value,
                 userPassword: nowPassword.value,
                 changePassword: changePassword.value
@@ -204,20 +207,18 @@ const UsersApp = (() => {
                 .then(response => {
                     return response.json();
                 }).then(json => {
+                    nowPassword.value = "";
+                    email.value = "";
+                    lastName.value = "";
+                    firstName.value = "";
+                    changePassword.value = "";
+                    AppStorage.set(storageKeyName, false);
                     if (json.hasOwnProperty('errorMessage')) {
                         alert(json.errorMessage);
                     } else {
-                        nowPassword.value = "";
-                        email.value = "";
-                        lastName.value = "";
-                        firstName.value = "";
-                        changePassword.value = "";
-
                         HeaderApp.reRender();
-
                         alert('회원 정보를 수정 했습니다.');
                     }
-                    AppStorage.set(storageKeyName, false);
                 })
         };
 
