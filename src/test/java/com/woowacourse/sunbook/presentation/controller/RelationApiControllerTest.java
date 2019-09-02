@@ -30,6 +30,10 @@ class RelationApiControllerTest extends TestTemplate {
                                 respondApi(loginAndRequest(HttpMethod.PUT, "/api/friends/1", Relationship.NONE, HttpStatus.OK, userSessionId))
                                         .jsonPath("$..relationship").isEqualTo("FRIEND");
                             });
+                })
+                .consumeWith(deleteRelation -> {
+                    String userSessionId = loginSessionId(otherRequestDto);
+                    respondApi(loginAndRequest(HttpMethod.DELETE, "api/friends/1", Relationship.NONE, HttpStatus.OK, userSessionId));
                 });
     }
 
@@ -64,6 +68,10 @@ class RelationApiControllerTest extends TestTemplate {
                                 respondApi(loginAndRequest(HttpMethod.GET, "/api/friends/friends/requested", Void.class, HttpStatus.OK, userSessionId))
                                         .jsonPath("$.length()").isEqualTo("1");
                             });
+                })
+                .consumeWith(deleteRelation -> {
+                    String userSessionId = loginSessionId(otherRequestDto);
+                    respondApi(loginAndRequest(HttpMethod.DELETE, "api/friends/1", Relationship.NONE, HttpStatus.OK, userSessionId));
                 });
     }
 
@@ -81,6 +89,10 @@ class RelationApiControllerTest extends TestTemplate {
                                 respondApi(loginAndRequest(HttpMethod.GET, "/api/friends/friends", Void.class, HttpStatus.OK, userSessionId))
                                         .jsonPath("$.length()").isEqualTo("0");
                             });
+                })
+                .consumeWith(deleteRelation -> {
+                    String userSessionId = loginSessionId(otherRequestDto);
+                    respondApi(loginAndRequest(HttpMethod.DELETE, "api/friends/1", Relationship.NONE, HttpStatus.OK, userSessionId));
                 });
     }
 }
