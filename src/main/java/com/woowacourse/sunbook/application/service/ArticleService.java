@@ -12,7 +12,6 @@ import com.woowacourse.sunbook.domain.relation.Relation;
 import com.woowacourse.sunbook.domain.user.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,16 +36,6 @@ public class ArticleService {
         this.userService = userService;
         this.relationService = relationService;
         this.modelMapper = modelMapper;
-    }
-
-    @Transactional(readOnly = true)
-    public List<ArticleResponseDto> findPageByAuthor(final Pageable pageable, final Long userId) {
-        User foundUser = userService.findById(userId);
-        return Collections.unmodifiableList(
-                articleRepository.findAllByAuthor(pageable, foundUser).getContent().stream()
-                        .map(article -> modelMapper.map(article, ArticleResponseDto.class))
-                        .collect(Collectors.toList())
-        );
     }
 
     @Transactional(readOnly = true)
