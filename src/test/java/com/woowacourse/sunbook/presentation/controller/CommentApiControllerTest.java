@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 
-import java.util.Objects;
-
 class CommentApiControllerTest extends TestTemplate {
     private static final Long ID = 1L;
 
@@ -29,13 +27,6 @@ class CommentApiControllerTest extends TestTemplate {
                 ;
     }
 
-    @Test
-    void 대댓글_조회() {
-        String sessionId = loginSessionId(userRequestDto);
-        respondApi(loginAndRequest(HttpMethod.GET, "/api/articles/1/comments/1", Void.class, HttpStatus.OK, sessionId))
-                .jsonPath("$.length()").isEqualTo(3)
-                ;
-    }
 
     @Test
     void 특정_게시글_댓글_조회_수() {
