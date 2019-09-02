@@ -53,16 +53,20 @@ public class ArticleService {
     public List<ArticleResponseDto> findAll(final Long loginId,
                                             final Long pageUserId,
                                             final String target) {
-        List<Article> articles = "users".equals(target)
-                ? findAllUserPage(loginId, pageUserId)
-                : findAllNewsFeed(loginId);
-
         return Collections.unmodifiableList(
-                articles.stream()
+                checkPage(loginId, pageUserId, target).stream()
                         .sorted()
                         .map(article -> modelMapper.map(article, ArticleResponseDto.class))
                         .collect(Collectors.toList())
         );
+    }
+
+    private List<Article> checkPage(final Long loginId, final Long pageUserId, final String target) {
+        if ("users".equals(target)) {
+            return findAllUserPage(loginId, pageUserId);
+        }
+
+        return findAllNewsFeed(loginId);
     }
 
     private List<Article> findAllNewsFeed(final Long loginId) {
@@ -72,7 +76,7 @@ public class ArticleService {
                 .collect(Collectors.toList());
 
         List<Article> newsFeedArticles = new ArrayList<>(articleRepository.findAllByAuthor(author));
-        newsFeedArticles.addAll(articleRepository.findAllByOpenRangeAndAuthorNot(OpenRange.ALL, author));
+            newsFeedArticles.addAll(articleRepository.findAllByOpenRangeAndAuthorNot(OpenRange.ALL, author));
         newsFeedArticles.addAll(articleRepository.findAllByAuthorInAndOpenRange(friends, OpenRange.ONLY_FRIEND));
 
         return Collections.unmodifiableList(newsFeedArticles);
