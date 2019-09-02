@@ -69,7 +69,7 @@ const ArticleApp = (() => {
                             "article-videoUrl": article.articleFeature.videoUrl.fileUrl,
                             "article-imageUrl": article.articleFeature.imageUrl.fileUrl,
                             "authorId": article.authorId,
-                            "authorName": article.authorName.name,
+                            "authorName": article.authorName.fullName,
                         }));
                         ReactionApp.service().showGoodCount('article', article.id);
                         addRangeIcon(article.id, article.openRange);
@@ -102,7 +102,7 @@ const ArticleApp = (() => {
                                 "article-videoUrl": article.articleFeature.videoUrl.fileUrl,
                                 "article-imageUrl": article.articleFeature.imageUrl.fileUrl,
                                 "authorId": article.authorId,
-                                "authorName": article.authorName.name,
+                                "authorName": article.authorName.fullName,
                             }));
                         ReactionApp.service().showGoodCount('article', article.id);
                         addRangeIcon(article.id, article.openRange);
@@ -123,11 +123,17 @@ const ArticleApp = (() => {
         };
 
         const translateSelectedRange = (range) => {
-            if (range === '모두 공개') {
+            const RANGE_STATUS = {
+                PUBLIC: '모두 공개',
+                ONLY_FRIEND: '친구 공개',
+                NONE: '비공개',
+            };
+
+            if (range === RANGE_STATUS.PUBLIC) {
                 return '0';
-            } else if (range === '친구 공개') {
+            } else if (range === RANGE_STATUS.ONLY_FRIEND) {
                 return '1';
-            } else if (range === '비공개') {
+            } else if (range === RANGE_STATUS.NONE) {
                 return '2';
             }
         };

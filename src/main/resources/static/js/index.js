@@ -6,30 +6,6 @@ const IndexApp = (() => {
     const IndexController = function () {
         const indexService = new IndexService();
 
-        const renderBirth = () => {
-            const selectMonth = document.querySelector('select[data-object="select-month"]');
-            const selectDay = document.querySelector('select[data-object="select-day"]');
-            const selectYear = document.querySelector('select[data-object="select-year"]');
-
-            // month
-            for (let i = 1; i <= 12; ++i) {
-                let object = {name: `${i}월`, value: i};
-                selectMonth.insertAdjacentHTML('beforeend', selectTemplate(object));
-            }
-
-            // day
-            for (let i = 1; i <= 31; ++i) {
-                let object = {name: `${i}일`, value: i};
-                selectDay.insertAdjacentHTML('beforeend', selectTemplate(object));
-            }
-
-            // year
-            for (let i = 2019; i >= 1900; --i) {
-                let object = {name: `${i}년`, value: i};
-                selectYear.insertAdjacentHTML('beforeend', selectTemplate(object));
-            }
-        };
-
         const login = () => {
             const loginBtn = document.getElementById('login-btn');
             loginBtn.addEventListener('click', indexService.login);
@@ -45,7 +21,6 @@ const IndexApp = (() => {
         };
 
         const init = () => {
-            renderBirth();
             login();
             signUp();
         };
@@ -63,6 +38,11 @@ const IndexApp = (() => {
 
             const email = document.getElementById('login-email');
             const password = document.getElementById('login-password');
+
+            if (String(email.value).length > 50 ) {
+                alert("이메일이 너무 깁니다.");
+                return;
+            }
 
             const data = {
                 userEmail: email.value,
@@ -93,7 +73,10 @@ const IndexApp = (() => {
             const password = document.getElementById('signup-password');
 
             const data = {
-                userName: lastName.value + firstName.value,
+                userName: {
+                    firstName: firstName.value,
+                    lastName: lastName.value,
+                },
                 userEmail: email.value,
                 userPassword: password.value
             };

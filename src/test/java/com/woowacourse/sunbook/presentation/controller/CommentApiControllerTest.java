@@ -17,7 +17,15 @@ class CommentApiControllerTest extends TestTemplate {
         respondApi(loginAndRequest(HttpMethod.POST, "/api/articles/2/comments", new Content("abc"), HttpStatus.OK, sessionId))
                 .jsonPath("$..id").isEqualTo(7)
                 .jsonPath("$..contents").isEqualTo("abc")
-                .jsonPath("$..authorName").isEqualTo("mir")
+                .jsonPath("$..authorName.firstName").isEqualTo("mir")
+                ;
+    }
+
+    @Test
+    void 대댓글_조회() {
+        String sessionId = loginSessionId(userRequestDto);
+        respondApi(loginAndRequest(HttpMethod.GET, "/api/articles/1/comments/1", Void.class, HttpStatus.OK, sessionId))
+                .jsonPath("$.length()").isEqualTo(3)
                 ;
     }
 
@@ -43,7 +51,7 @@ class CommentApiControllerTest extends TestTemplate {
         respondApi(loginAndRequest(HttpMethod.PUT, "/api/articles/1/comments/1", new Content("abcd"), HttpStatus.OK, sessionId))
                 .jsonPath("$..id").isEqualTo(ID.intValue())
                 .jsonPath("$..contents").isEqualTo("abcd")
-                .jsonPath("$..authorName").isEqualTo("mir")
+                .jsonPath("$..authorName.firstName").isEqualTo("mir")
                 ;
     }
 
