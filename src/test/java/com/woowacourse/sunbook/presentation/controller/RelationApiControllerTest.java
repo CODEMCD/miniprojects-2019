@@ -85,7 +85,7 @@ class RelationApiControllerTest extends TestTemplate {
                             .exchange()
                             .expectBody()
                             .consumeWith(userLogin -> {
-                                String userSessionId = loginSessionId(otherRequestDto);
+                                String userSessionId = loginSessionId(temp2);
                                 respondApi(loginAndRequest(HttpMethod.GET, "/api/friends/friends", Void.class, HttpStatus.OK, userSessionId))
                                         .jsonPath("$.length()").isEqualTo("0");
                             });
