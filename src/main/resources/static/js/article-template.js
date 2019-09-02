@@ -8,7 +8,7 @@ const template = (function () {
                             <li>
                                 <img class="thumb-img img-circle" src="/images/default/eastjun_profile.jpg" alt="">
                                 <div class="info">
-                                    <a href="users/{{authorId}}" class="title no-pdd-vertical text-semibold inline-block">{{authorName}}</a>
+                                    <a href="/users/{{authorId}}" class="title no-pdd-vertical text-semibold inline-block">{{authorName}}</a>
                                     <span class="sub-title">{{updatedTime}}</span>
                                     <a class="pointer absolute top-0 right-0" data-toggle="dropdown"
                                        aria-expanded="false">
