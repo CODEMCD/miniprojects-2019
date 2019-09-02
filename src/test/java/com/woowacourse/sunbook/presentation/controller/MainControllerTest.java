@@ -19,7 +19,7 @@ class MainControllerTest extends TestTemplate {
 
     @Test
     void 로그아웃_성공() {
-        loginAndRequest(HttpMethod.POST, "/signout", Void.class, HttpStatus.FOUND, loginSessionId(userRequestDto));
+        loginAndRequest(HttpMethod.DELETE, "/signout", Void.class, HttpStatus.OK, loginSessionId(userRequestDto));
     }
 
     @Test
