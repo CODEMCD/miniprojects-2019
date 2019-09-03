@@ -45,13 +45,13 @@ public class TestTemplate {
             new UserPassword("asdf1234!A")
     );
 
-    protected UserRequestDto temp1 = new UserRequestDto(
+    protected UserRequestDto relationUser = new UserRequestDto(
             new UserEmail("test1@naver.com"),
             new UserName("first", "last"),
             new UserPassword("asdf1234!A")
     );
 
-    protected UserRequestDto temp2 = new UserRequestDto(
+    protected UserRequestDto relationOtherUser = new UserRequestDto(
             new UserEmail("test2@naver.com"),
             new UserName("firstt", "lastt"),
             new UserPassword("asdf1234!A")
