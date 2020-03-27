@@ -1,13 +1,16 @@
 package com.woowacourse.sunbook.domain.relation;
 
 import com.woowacourse.sunbook.domain.BaseEntity;
-import com.woowacourse.sunbook.domain.user.User;
 import com.woowacourse.sunbook.domain.relation.exception.RelationException;
-import lombok.*;
+import com.woowacourse.sunbook.domain.user.User;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 @ToString

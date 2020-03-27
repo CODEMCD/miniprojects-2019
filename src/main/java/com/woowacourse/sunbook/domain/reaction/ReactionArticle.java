@@ -12,7 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 public class ReactionArticle extends BaseEntity {

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 public class User extends BaseEntity {

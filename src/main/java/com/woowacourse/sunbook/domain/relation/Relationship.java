@@ -1,8 +1,10 @@
 package com.woowacourse.sunbook.domain.relation;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
+@AllArgsConstructor
 @Getter
 @ToString
 public enum Relationship {
@@ -12,10 +14,6 @@ public enum Relationship {
 	NONE("NONE");
 
 	private String relationship;
-
-	Relationship(String relationship) {
-		this.relationship = relationship;
-	}
 
 	public boolean isPossibleAddOrRequested() {
 		return this == NONE;

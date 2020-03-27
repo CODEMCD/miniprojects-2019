@@ -1,9 +1,11 @@
 package com.woowacourse.sunbook.domain.article;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Arrays;
 
+@AllArgsConstructor
 @Getter
 public enum OpenRange {
     ALL(0),
@@ -11,10 +13,6 @@ public enum OpenRange {
     NONE(2);
 
     private Integer openRange;
-
-    OpenRange(Integer openRange) {
-        this.openRange = openRange;
-    }
 
     public static OpenRange of(Integer openRange) {
         return Arrays.stream(values())
