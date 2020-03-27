@@ -12,8 +12,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
@@ -40,9 +38,6 @@ public class Comment extends BaseEntity implements Comparable<Comment> {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_id", foreignKey = @ForeignKey(name = "fk_comment_to_comment"))
     private Comment parent;
-
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE)
-    private List<Comment> children = new ArrayList<>();
 
     public Comment(final Content content, final User author, final Article article, final Comment parent) {
         this.content = content;
