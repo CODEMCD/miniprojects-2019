@@ -24,10 +24,18 @@
     - Fetch API
     
     
-## 실행하기
+## 로컬에서 빌드 및 실행하기
+### 터미널 환경
+- Git, Java 는 설치되어 있다고 가정한다.
 
+```
+$ git clone https://github.com/CODEMCD/sunbook.git
+$ cd sunbook
+$ ./gradlew clean build
+$ java -jar build/libs/sunbook-0.0.1-SNAPSHOT.jar
+```
 
-## 아키텍처
+- 접속 Base URI: `http://localhost:8080`
 
 
 ## 엔티티 구조
